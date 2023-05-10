@@ -10,29 +10,25 @@ const app = express();
 app.use(bodyParser.urlencoded({extended: true}));
 
 //this sends the html file to the web page using the root directory
-//
-app.get("/VolCalc", function(req, res) {
-  res.sendFile(__dirname + "/VolCalculator.html")
+app.get("/ConeCalc", function(req, res) {
+res.sendFile(__dirname + "/ConeCalculator.html")
 });
 
 // this gets the response from the values in the web page
 app.post("/", function(req, res){
 
-//use n1 for radium and n2 for height
-  //changed n1 to radius
-  //changed n2 to height
-  var radius = Number(req.body.radius);
-  var height = Number(req.body.height);
+//use n1 for radius and n2 for height
+let radius = Number(req.body.radius);
+let height = Number(req.body.height);
 
 // does the computation of the input variables, as numbers
-//This is a new comment that is gor GitHub
-  var volCylinder = Math.PI * Math.pow(radius, 2) * height;
+let volCone = (Math.PI * Math.pow(radius, 2) * height) / 3;
+let coneHeight = (3 * volCone) / (Math.PI * Math.pow(radius, 2));
 
 // sends the results back to the web page as string
-  res.send("The volume of the cylinder is " + volCylinder.toFixed(2));
-})
-//this gets the response from the web page to this placeholder
+res.send("The height of the cone is " + coneHeight.toFixed(2));
+});
 
 app.listen(3000, function() {
-  console.log ("Server is running on port 3000")
+console.log ("Server is running on port 3000")
 });
